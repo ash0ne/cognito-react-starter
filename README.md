@@ -24,4 +24,4 @@ The project follows a structured component organization to showcase various func
   - **Section 2**: Illustrates how these tokens can be utilized to make API calls to the backend.
 
 This structured approach allows for easy understanding and modification of the application's components and functionalities.
-Read `LICENSE`
+Read `LICENSE`.

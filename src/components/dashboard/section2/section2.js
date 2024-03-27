@@ -12,7 +12,7 @@ const SectionTwo = () => (
       <div className="card border-0 ml-4">
         <div className="card-body p-4 text-purple">
           <h5 className="card-title">
-            //TODO Click to place an API call to the backend
+            Click to place an API call to the backend
           </h5>
         </div>
       </div>
