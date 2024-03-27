@@ -1,7 +1,7 @@
 import React from "react";
-{
-  /* Code to construct the pretty display for IDP details and tokens */
-}
+
+/* Code to construct the pretty display for IDP details and tokens */
+
 const SectionOne = ({ tokens }) => (
   <div className="row">
     <h3 className="m-4 text-dark">
