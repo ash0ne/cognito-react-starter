@@ -28,7 +28,9 @@ jobs:
         run: npm test
 
       - name: Audit dependencies
-        run: npm audit --json
+        run: |
+          audit_output=$(npm audit --json 2>&1)
+          echo "$audit_output"
 
       - name: Build
         run: npm run build
