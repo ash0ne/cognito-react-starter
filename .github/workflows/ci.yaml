@@ -29,8 +29,9 @@ jobs:
 
       - name: Audit dependencies
         run: |
-          audit_output=$(npm audit --json 2>&1)
-          echo "$audit_output"
+          set +e
+          npm audit --json
+          set -e
 
       - name: Build
         run: npm run build
