@@ -8,7 +8,7 @@
   - Before using this application, it's necessary to set up an [AWS Cognito Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html). This process is pretty straightforward.
   - Upon setting up the Identity Pool, make sure to replace the placeholders in `src/aws-export.js` with your Cognito Identity Pool configuration values.
 
-  > Note: When creating the Cognito Identity Pool, ensure it is created without an App Client Secret. This is a common practice as frontend applications typically have no secure way of storing the secret. The client secret is required only in specific OAuth2.0 scenarios. Refer to [this Stack Overflow thread](https://stackoverflow.com/questions/47916034/what-is-a-cognito-app-client-secret) for more information.
+  > Note: When creating the Cognito Identity Pool, ensure it is created without an App Client Secret. This is a common practice as frontend applications typically have no secure way of storing the secret. Refer to [this Stack Overflow thread](https://stackoverflow.com/questions/47916034/what-is-a-cognito-app-client-secret) for more information.
 
 ## Component Structure and Overview
 
