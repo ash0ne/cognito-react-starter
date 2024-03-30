@@ -1,12 +1,9 @@
 # Cognitor React Starter
 
-[Overview](#overview)
-
-[Getting Started](#getting-started)
-
-[Config](#config)
-
-[Components](#component-structure)
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+- [Config](#config)
+- [Components](#component-structure)
 
 ## Overview
 
