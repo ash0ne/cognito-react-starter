@@ -43,5 +43,3 @@ The project follows a structured component organization to showcase various func
   - Features a dashboard with a navbar that includes user details, an option to sign out, and two sections.
   - **Section 1**: Displays all the ID and Access token details retrieved from the Cognito Identity Pool.
   - **Section 2**: Illustrates how these tokens can be utilized to make API calls to the backend.
-
-This structured approach allows for easy understanding and modification of the application's components and functionalities.
