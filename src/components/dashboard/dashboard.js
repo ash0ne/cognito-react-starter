@@ -65,7 +65,7 @@ const Dashboard = ({ signOut, user }) => {
       </Navbar>
       <div className="main-content">
         {activeNavItem === "section1" && <SectionOne tokens={tokens} />}
-        {activeNavItem === "section2" && <SectionTwo />}
+        {activeNavItem === "section2" && <SectionTwo tokens={tokens} />}
       </div>
     </div>
   );

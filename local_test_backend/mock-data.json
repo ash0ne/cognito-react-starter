@@ -1,0 +1,47 @@
+{
+  "content": [
+    {
+      "id": "b6b44546-c51a-4a8b-8f0d-489e1aaf59d8",
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 31,
+      "phoneNumber": "+447777777777",
+      "tag": "m",
+      "createTime": "2024-03-30T11:57:56.437310Z"
+    },
+    {
+      "id": "fb0b2c26-3820-4fa6-bbe5-da864d57630a",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "age": 32,
+      "phoneNumber": "+769999999999",
+      "tag": "f",
+      "createTime": "2024-03-30T11:53:54.810647Z"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 10,
+    "sort": {
+      "empty": false,
+      "unsorted": false,
+      "sorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalElements": 2,
+  "totalPages": 1,
+  "first": true,
+  "size": 10,
+  "number": 0,
+  "sort": {
+    "empty": false,
+    "unsorted": false,
+    "sorted": true
+  },
+  "numberOfElements": 2,
+  "empty": false
+}
