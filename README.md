@@ -1,5 +1,7 @@
 # Cognitor React Starter
 
+![CI Status Badge](https://github.com/ash0ne/cognito-react-starter/actions/workflows/ci.yaml/badge.svg)
+
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Config](#config)
