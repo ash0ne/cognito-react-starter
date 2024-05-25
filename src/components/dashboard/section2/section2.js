@@ -3,14 +3,15 @@ import axios from "axios";
 import Table from "../../commons/table/table";
 import { handleChange, formatDate } from "../../../utils/utils";
 
-/* Code to use the access token provided by the amplify wrapper and make an API call to the backend. */
-
 const apiUrl = process.env.REACT_APP_BACKEND_APP_API_BASE_URL;
+
 const SectionTwo = ({ tokens }) => {
   // ---------- States ------------
   const [persons, setPersons] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,30 +21,39 @@ const SectionTwo = ({ tokens }) => {
   });
 
   // ----------- API Calls -----------
-  const fetchData = useCallback(async () => {
-    //GET
-    try {
-      const response = await axios.get(`${apiUrl}v1/persons?page=0&size=20`, {
-        headers: {
-          Authorization: `Bearer ${tokens.accessToken}`,
-        },
-      });
-      // Transforming the date format
-      const formattedPersons = response.data.content.map((person) => ({
-        ...person,
-        createTime: formatDate(person.createTime),
-      }));
-      setPersons(formattedPersons);
-    } catch (error) {
-      console.error(
-        "Error fetching data. Make sure you have the right backend config:",
-        error,
-      );
-    } finally {
-      setLoading(false);
-    }
-    console.log("Fetching data...");
-  }, [tokens.accessToken]);
+  const fetchData = useCallback(
+    async (page = 0) => {
+      //GET
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `${apiUrl}v1/persons?page=${page}&size=10`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokens.accessToken}`,
+            },
+          },
+        );
+        // Transforming the date format
+        const formattedPersons = response.data.content.map((person) => ({
+          ...person,
+          createTime: formatDate(person.createTime),
+        }));
+        setPersons(formattedPersons);
+        setTotalPages(response.data.totalPages);
+        setCurrentPage(page);
+      } catch (error) {
+        console.error(
+          "Error fetching data. Make sure you have the right backend config:",
+          error,
+        );
+      } finally {
+        setLoading(false);
+      }
+      console.log("Fetching data...");
+    },
+    [tokens.accessToken],
+  );
 
   const postData = async () => {
     //POST
@@ -74,15 +84,37 @@ const SectionTwo = ({ tokens }) => {
     }
   };
 
+  const deleteItem = async (id) => {
+    try {
+      const response = await axios.delete(`${apiUrl}v1/persons/${id}`, {
+        headers: {
+          Authorization: `Bearer ${tokens.accessToken}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log(`Item with ID ${id} deleted successfully.`);
+        fetchData(currentPage);
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      fetchData(newPage);
+    }
+  };
+
   return (
     <div className="row">
       <h3 className="m-4 text-dark">
-        This section has the sample code to use the tokens from the Auth object
-        and make an API call
+        This section has the code to use tokens from the Auth object and make
+        API calls
       </h3>
       <div className="col-lg-4">
         <div
@@ -152,16 +184,23 @@ const SectionTwo = ({ tokens }) => {
                 onChange={(e) => handleChange(e, formData, setFormData)}
               />
             </div>
-            <div className="d-grid">
-              <button className="btn btn-dark btn-lg" onClick={postData}>
+            <div className="d-flex gap-2">
+              <button
+                className="btn btn-success btn-sm flex-grow-1"
+                onClick={postData}
+              >
                 Add
               </button>
-              {showSuccess && (
-                <span className="text-success mt-3">
-                  ✔ Successfully added!
-                </span>
-              )}
+              <button
+                className="btn btn-dark btn-sm flex-grow-1"
+                onClick={postData}
+              >
+                Search
+              </button>
             </div>
+            {showSuccess && (
+              <span className="text-success mt-3">✔ Successfully added!</span>
+            )}
           </div>
         </div>
       </div>
@@ -184,8 +223,14 @@ const SectionTwo = ({ tokens }) => {
               "Phone Number",
               "Create Time",
             ]}
+            importantHeadings={["First Name", "Phone Number"]}
             data={persons}
             excludedKeys={["id", "tag"]}
+            importantKeys={["firstName", "phoneNumber"]}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            deleteItem={deleteItem} // Passing the deleteItem function as prop
           />
         )}
       </div>
