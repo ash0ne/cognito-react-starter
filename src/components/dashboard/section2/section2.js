@@ -223,14 +223,14 @@ const SectionTwo = ({ tokens }) => {
               "Phone Number",
               "Create Time",
             ]}
-            importantHeadings={["First Name", "Phone Number"]}
+            importantHeadings={["First Name", "Phone Number"]} // Only these are showin in mobile layouts
+            importantKeys={["firstName", "phoneNumber"]} // Only these are showin in mobile layouts
             data={persons}
             excludedKeys={["id", "tag"]}
-            importantKeys={["firstName", "phoneNumber"]}
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            deleteItem={deleteItem} // Passing the deleteItem function as prop
+            deleteItem={deleteItem}
           />
         )}
       </div>
