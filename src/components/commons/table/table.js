@@ -126,23 +126,23 @@ const Table = ({
                 </span>
               </li>
               <li
-                className={`page-item ${currentPage === totalPages - 1 ? "disabled" : ""}`}
+                className={`page-item ${totalPages === 0 || currentPage === totalPages - 1 ? "disabled" : ""}`}
               >
                 <button
                   className="page-link"
                   onClick={() => onPageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages - 1}
+                  disabled={totalPages === 0 || currentPage === totalPages - 1}
                 >
                   Next
                 </button>
               </li>
               <li
-                className={`page-item ${currentPage === totalPages - 1 ? "disabled" : ""}`}
+                className={`page-item ${totalPages === 0 || currentPage === totalPages - 1 ? "disabled" : ""}`}
               >
                 <button
                   className="page-link"
                   onClick={() => onPageChange(totalPages - 1)}
-                  disabled={currentPage === totalPages - 1}
+                  disabled={totalPages === 0 || currentPage === totalPages - 1}
                 >
                   Last
                 </button>
