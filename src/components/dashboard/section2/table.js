@@ -22,8 +22,6 @@ const Table = ({
   const [isLoading, setIsLoading] = useState(false);
   const [editablePerson, setEditablePerson] = useState(null);
 
-  
-
   const handleNameClick = async (id) => {
     setIsLoading(true);
     try {

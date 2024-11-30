@@ -6,7 +6,7 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
   const handleChange = (e, formData, setFormData) => {
     const { id, value } = e.target;
     let newValue = value;
-  
+
     // Validate input based on the field ID
     if (id === "firstName" || id === "lastName" || id === "tag") {
       newValue = value.replace(/[^a-zA-Z\s]/g, "");
@@ -24,13 +24,12 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
         newValue = newValue.substring(0, 20);
       }
     }
-  
+
     setFormData({
       ...formData,
       [id]: newValue,
     });
   };
-  
 
   return (
     <div

@@ -5,7 +5,7 @@ const PersonDetails = ({
   editablePerson,
   handleInputChange,
   handleUpdate,
-  handleBack
+  handleBack,
 }) => {
   return (
     <div
