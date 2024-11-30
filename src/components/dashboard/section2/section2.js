@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import Table from "../../commons/table/table";
+import Table from "./table";
 import { formatDate } from "../../../utils/utils";
 import PersonForm from "./person-form"; // Adjust the import path as needed
 
@@ -159,6 +159,7 @@ const SectionTwo = ({ tokens }) => {
             totalPages={totalPages}
             onPageChange={handlePageChange}
             deleteItem={deleteItem}
+            tokens={tokens}
           />
         )}
       </div>

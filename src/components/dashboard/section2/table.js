@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import axios from "axios";
+import PersonDetails from "./person-details";
+
+const apiUrl = process.env.REACT_APP_BACKEND_APP_API_BASE_URL;
 
 const Table = ({
   title,
@@ -12,10 +16,72 @@ const Table = ({
   deleteItem,
   importantKeys,
   importantHeadings,
+  tokens,
 }) => {
+  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [editablePerson, setEditablePerson] = useState(null);
+
+  
+
+  const handleNameClick = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${apiUrl}v1/persons/${id}`, {
+        headers: {
+          Authorization: `Bearer ${tokens.accessToken}`,
+        },
+      });
+      setSelectedPerson(response.data);
+      setEditablePerson(response.data);
+    } catch (error) {
+      console.error("Error fetching person details:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleBack = () => {
+    setSelectedPerson(null);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditablePerson((prevPerson) => ({
+      ...prevPerson,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await axios.patch(
+        `${apiUrl}v1/persons/${editablePerson.id}`,
+        editablePerson,
+        {
+          headers: {
+            Authorization: `Bearer ${tokens.accessToken}`,
+          },
+        },
+      );
+      setSelectedPerson(editablePerson);
+    } catch (error) {
+      console.error("Error updating person details:", error);
+    }
+  };
+
   const renderCell = (item, key) => (
     <td key={key} className="text-secondary p-1">
-      {item[key]}
+      {key === "firstName" ? (
+        <button
+          className="btn btn-link p-0 m-0 text-primary"
+          onClick={() => handleNameClick(item.id)}
+        >
+          {item[key]}
+        </button>
+      ) : (
+        item[key]
+      )}
     </td>
   );
 
@@ -50,7 +116,7 @@ const Table = ({
 
   const isMobile = window.innerWidth <= 768;
 
-  return (
+  const renderTable = () => (
     <div
       className="card border-1 m-4 d-flex flex-column overflow-scroll"
       style={{ minHeight: "75vh", maxHeight: "75vh" }}
@@ -126,7 +192,11 @@ const Table = ({
                 </span>
               </li>
               <li
-                className={`page-item ${totalPages === 0 || currentPage === totalPages - 1 ? "disabled" : ""}`}
+                className={`page-item ${
+                  totalPages === 0 || currentPage === totalPages - 1
+                    ? "disabled"
+                    : ""
+                }`}
               >
                 <button
                   className="page-link"
@@ -137,7 +207,11 @@ const Table = ({
                 </button>
               </li>
               <li
-                className={`page-item ${totalPages === 0 || currentPage === totalPages - 1 ? "disabled" : ""}`}
+                className={`page-item ${
+                  totalPages === 0 || currentPage === totalPages - 1
+                    ? "disabled"
+                    : ""
+                }`}
               >
                 <button
                   className="page-link"
@@ -151,6 +225,22 @@ const Table = ({
           </nav>
         </div>
       </div>
+    </div>
+  );
+
+  return (
+    <div>
+      {!selectedPerson ? (
+        renderTable()
+      ) : (
+        <PersonDetails
+          isLoading={isLoading}
+          editablePerson={editablePerson}
+          handleInputChange={handleInputChange}
+          handleUpdate={handleUpdate}
+          handleBack={handleBack}
+        />
+      )}
     </div>
   );
 };

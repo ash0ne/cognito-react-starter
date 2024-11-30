@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, NavLink } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 import SectionOne from "./section1/section1";
 import SectionTwo from "./section2/section2";
 
 const Dashboard = ({ signOut, user }) => {
+  const navigate = useNavigate();
   const [activeNavItem, setActiveNavItem] = useState("section1");
   const handleNavItemClick = (navItem) => {
     setActiveNavItem(navItem);
@@ -24,6 +26,10 @@ const Dashboard = ({ signOut, user }) => {
     getTokens();
   }, []);
 
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <Navbar bg="dark" variant="dark">
@@ -35,6 +41,7 @@ const Dashboard = ({ signOut, user }) => {
             marginLeft: "1em",
           }}
         >
+          <NavLink onClick={handleHomeClick}>[Home]</NavLink>
           <NavLink
             onClick={() => handleNavItemClick("section1")}
             active={activeNavItem === "section1"}
@@ -55,7 +62,7 @@ const Dashboard = ({ signOut, user }) => {
               fontFamily: "JetBrains Mono, monospace",
               marginRight: "1em",
             }}
-            title={<span className=" text-light"> {user.username} </span>}
+            title={<span className="text-light">{user.username}</span>}
             id="basic-nav-dropdown"
             align="end"
           >
