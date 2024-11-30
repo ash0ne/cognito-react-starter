@@ -96,6 +96,14 @@ const SectionTwo = ({ tokens }) => {
     }
   };
 
+  const updateData = (updatedPerson) => {
+    setPersons((prevData) =>
+      prevData.map((person) =>
+        person.id === updatedPerson.id ? updatedPerson : person,
+      ),
+    );
+  };
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -151,14 +159,15 @@ const SectionTwo = ({ tokens }) => {
               "Phone Number",
               "Create Time",
             ]}
-            importantHeadings={["First Name", "Phone Number"]} // Only these are showin in mobile layouts
-            importantKeys={["firstName", "phoneNumber"]} // Only these are showin in mobile layouts
+            importantHeadings={["First Name", "Phone Number"]} // Only these are showing in mobile layouts
+            importantKeys={["firstName", "phoneNumber"]} // Only these are showing in mobile layouts
             data={persons}
             excludedKeys={["id", "tag"]}
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
             deleteItem={deleteItem}
+            updateData={updateData}
             tokens={tokens}
           />
         )}

@@ -17,6 +17,7 @@ const Table = ({
   importantKeys,
   importantHeadings,
   tokens,
+  updateData,
 }) => {
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +54,7 @@ const Table = ({
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${apiUrl}v1/persons/${editablePerson.id}`,
         editablePerson,
         {
@@ -62,7 +63,8 @@ const Table = ({
           },
         },
       );
-      setSelectedPerson(editablePerson);
+      updateData(response.data);
+      setSelectedPerson(response.data);
     } catch (error) {
       console.error("Error updating person details:", error);
     }
