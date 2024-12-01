@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
+const PersonForm = ({
+  formData,
+  setFormData,
+  handleSubmit,
+  message,
+  resetSearch,
+}) => {
   const [mode, setMode] = useState("add");
 
   const handleChange = (e, formData, setFormData) => {
@@ -87,6 +93,7 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
               id="firstName"
               value={formData.firstName}
               onChange={(e) => handleChange(e, formData, setFormData)}
+              required
             />
           </div>
           {mode === "add" && (
@@ -113,6 +120,7 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
                   id="age"
                   value={formData.age}
                   onChange={(e) => handleChange(e, formData, setFormData)}
+                  required
                 />
               </div>
             </>
@@ -127,6 +135,7 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
               id="phoneNumber"
               value={formData.phoneNumber}
               onChange={(e) => handleChange(e, formData, setFormData)}
+              required
             />
           </div>
           {mode === "add" && (
@@ -150,6 +159,15 @@ const PersonForm = ({ formData, setFormData, handleSubmit, message }) => {
             >
               {mode === "add" ? "Add" : "Search"}
             </button>
+            {mode === "search" && (
+              <button
+                type="button"
+                className="btn btn-warning btn-sm flex-grow-1"
+                onClick={resetSearch}
+              >
+                Reset
+              </button>
+            )}
           </div>
         </form>
         {message && <span className="text-success mt-3">{message}</span>}
