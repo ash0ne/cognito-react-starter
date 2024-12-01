@@ -46,9 +46,29 @@ const Table = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let newValue = value;
+
+    // Validate inputs based on the field name same as the one in person-form
+    if (name === "firstName" || name === "lastName" || name === "tag") {
+      newValue = value.replace(/[^a-zA-Z\s]/g, "");
+    } else if (name === "age") {
+      newValue = value.replace(/\D/g, "");
+      if (
+        newValue !== "" &&
+        (parseInt(newValue) < 0 || parseInt(newValue) > 120)
+      ) {
+        newValue = editablePerson.age;
+      }
+    } else if (name === "phoneNumber") {
+      newValue = value.replace(/(?:\+|(?!^))\+|[^+\d]/g, "");
+      if (newValue.length > 20) {
+        newValue = newValue.substring(0, 20);
+      }
+    }
+
     setEditablePerson((prevPerson) => ({
       ...prevPerson,
-      [name]: value,
+      [name]: newValue,
     }));
   };
 
@@ -65,8 +85,10 @@ const Table = ({
       );
       updateData(response.data);
       setSelectedPerson(response.data);
+      return true;
     } catch (error) {
       console.error("Error updating person details:", error);
+      return false;
     }
   };
 

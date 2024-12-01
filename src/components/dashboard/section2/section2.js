@@ -99,7 +99,12 @@ const SectionTwo = ({ tokens }) => {
   const updateData = (updatedPerson) => {
     setPersons((prevData) =>
       prevData.map((person) =>
-        person.id === updatedPerson.id ? updatedPerson : person,
+        person.id === updatedPerson.id
+          ? {
+              ...updatedPerson,
+              createTime: formatDate(updatedPerson.createTime),
+            }
+          : person,
       ),
     );
   };
@@ -139,6 +144,16 @@ const SectionTwo = ({ tokens }) => {
           setFormData={setFormData}
           handleSubmit={handleSubmit}
           message={message}
+          resetSearch={() => {
+            setFormData({
+              firstName: "",
+              lastName: "",
+              age: "",
+              phoneNumber: "",
+              tag: "",
+            });
+            fetchData();
+          }}
         />
       </div>
       <div className="col-lg-7">
@@ -157,7 +172,7 @@ const SectionTwo = ({ tokens }) => {
               "Last Name",
               "Age",
               "Phone Number",
-              "Create Time",
+              "Created",
             ]}
             importantHeadings={["First Name", "Phone Number"]} // Only these are showing in mobile layouts
             importantKeys={["firstName", "phoneNumber"]} // Only these are showing in mobile layouts

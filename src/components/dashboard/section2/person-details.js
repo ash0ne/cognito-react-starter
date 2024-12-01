@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const PersonDetails = ({
   isLoading,
@@ -7,9 +7,23 @@ const PersonDetails = ({
   handleUpdate,
   handleBack,
 }) => {
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleUpdateWithMessage = async () => {
+    const isSuccess = await handleUpdate();
+    if (isSuccess) {
+      setSuccessMessage("✔ Successfully updated!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 1500);
+    } else {
+      setSuccessMessage("");
+    }
+  };
+
   return (
     <div
-      className="card border-1 m-4 d-flex flex-column overflow-scroll "
+      className="card border-1 m-4 d-flex flex-column overflow-scroll"
       style={{ minHeight: "75vh", maxHeight: "75vh" }}
     >
       <div className="card-body p-3 flex-grow-1 d-flex flex-column">
@@ -54,7 +68,7 @@ const PersonDetails = ({
                   Age
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control form-control-sm"
                   id="age"
                   name="age"
@@ -78,15 +92,20 @@ const PersonDetails = ({
                 />
               </div>
             </div>
-            {/* Add more fields as necessary */}
             <div className="col-md-12 d-flex justify-content-between align-items-center mt-3">
               <button className="btn btn-dark btn-sm" onClick={handleBack}>
                 Back
               </button>
-              <button className="btn btn-dark btn-sm" onClick={handleUpdate}>
+              <button
+                className="btn btn-dark btn-sm"
+                onClick={handleUpdateWithMessage}
+              >
                 Update Details
               </button>
             </div>
+            {successMessage && (
+              <div className="mt-3 text-success">{successMessage}</div>
+            )}
           </div>
         )}
       </div>
