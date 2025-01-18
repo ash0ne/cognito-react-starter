@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, NavLink } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 import SectionOne from "./section1/section1";

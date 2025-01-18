@@ -7,7 +7,7 @@ import {
   Route,
   Routes,
   Navigate,
-} from "react-router-dom";
+} from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
