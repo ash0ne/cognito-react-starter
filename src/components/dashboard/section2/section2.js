@@ -81,10 +81,10 @@ const SectionTwo = ({ tokens }) => {
     } catch (error) {
       console.error("Error making API call:", error);
       setSuccessMessage("");
-        setErrorMessage("✖️ Error adding person.");
-        setTimeout(() => {
-          setErrorMessage("");
-        }, 2000);
+      setErrorMessage("✖️ Error adding person.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
     }
   };
 

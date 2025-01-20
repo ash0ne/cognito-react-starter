@@ -171,8 +171,12 @@ const PersonForm = ({
             )}
           </div>
         </form>
-        {successMessage && <span className="text-success mt-3">{successMessage}</span>}
-        {errorMessage && <span className="text-danger mt-3">{errorMessage}</span>}
+        {successMessage && (
+          <span className="text-success mt-3">{successMessage}</span>
+        )}
+        {errorMessage && (
+          <span className="text-danger mt-3">{errorMessage}</span>
+        )}
       </div>
     </div>
   );
