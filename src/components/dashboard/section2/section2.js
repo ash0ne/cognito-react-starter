@@ -9,7 +9,8 @@ const apiUrl = process.env.REACT_APP_BACKEND_APP_API_BASE_URL;
 const SectionTwo = ({ tokens }) => {
   // ---------- States ------------
   const [persons, setPersons] = useState([]);
-  const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -63,9 +64,10 @@ const SectionTwo = ({ tokens }) => {
         },
       });
       if (response.status === 200) {
-        setMessage("✔ Successfully added!");
+        setErrorMessage("");
+        setSuccessMessage("✔ Successfully added!");
         setTimeout(() => {
-          setMessage("");
+          setSuccessMessage("");
           setFormData({
             firstName: "",
             lastName: "",
@@ -73,11 +75,16 @@ const SectionTwo = ({ tokens }) => {
             phoneNumber: "",
             tag: "",
           });
-        }, 1500);
+        }, 2000);
       }
       fetchData();
     } catch (error) {
       console.error("Error making API call:", error);
+      setSuccessMessage("");
+        setErrorMessage("✖️ Error adding person.");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 2000);
     }
   };
 
@@ -143,7 +150,8 @@ const SectionTwo = ({ tokens }) => {
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
-          message={message}
+          successMessage={successMessage}
+          errorMessage={errorMessage}
           resetSearch={() => {
             setFormData({
               firstName: "",
