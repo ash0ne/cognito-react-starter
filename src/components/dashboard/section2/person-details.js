@@ -8,16 +8,21 @@ const PersonDetails = ({
   handleBack,
 }) => {
   const [successMessage, setSuccessMessage] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
   const handleUpdateWithMessage = async () => {
     const isSuccess = await handleUpdate();
     if (isSuccess) {
       setSuccessMessage("✔ Successfully updated!");
+      setErrorMessage("");
       setTimeout(() => {
         setSuccessMessage("");
-      }, 1500);
+      }, 2000);
     } else {
+      setErrorMessage("✖️ Error Updating Details.");
       setSuccessMessage("");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
     }
   };
 
@@ -105,6 +110,9 @@ const PersonDetails = ({
             </div>
             {successMessage && (
               <div className="mt-3 text-success">{successMessage}</div>
+            )}
+            {errorMessage && (
+              <div className="mt-3 text-danger">{errorMessage}</div>
             )}
           </div>
         )}

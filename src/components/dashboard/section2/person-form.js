@@ -4,7 +4,8 @@ const PersonForm = ({
   formData,
   setFormData,
   handleSubmit,
-  message,
+  successMessage,
+  errorMessage,
   resetSearch,
 }) => {
   const [mode, setMode] = useState("add");
@@ -170,7 +171,8 @@ const PersonForm = ({
             )}
           </div>
         </form>
-        {message && <span className="text-success mt-3">{message}</span>}
+        {successMessage && <span className="text-success mt-3">{successMessage}</span>}
+        {errorMessage && <span className="text-danger mt-3">{errorMessage}</span>}
       </div>
     </div>
   );
